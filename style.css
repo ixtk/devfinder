@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-color: #f5f7ff;
+  --box-radius: 8px;
+}
+
+body {
+  font-family: 'Space Mono';
+  margin: 0;
+  line-height: 1.5;
+  background-color: var(--bg-color);
+  padding-top: 1rem;
+}
+
+.container {
+  max-width: 40rem;
+  padding: 0 1.3rem;
+  margin: 2rem auto 0 auto;
+}
+
+input, button {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.theme-btn {
+  background: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.theme-mode-text {
+  margin-right: 0.7em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.search-bar {
+  background: white;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0.7rem;
+  border-radius: var(--box-radius);
+  gap: 1rem;
+}
+
+.search-btn {
+  padding: 0.7rem 1.3rem;
+  border-radius: var(--box-radius);
+  width: 100%;
+}
+
+.search-input {
+  padding: 0.3rem 0.5rem;
+  flex-grow: 1;
+}
+
+@media screen and (min-width: 450px) {
+  .search-btn {
+    width: auto;
+  }
+
+  .search-icon {
+    margin-left: 0.3rem;
+  }
+}
