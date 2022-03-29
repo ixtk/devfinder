@@ -49,6 +49,10 @@ img {
   display: block;
 }
 
+a {
+  display: inline-block;
+}
+
 .info-list-item:first-child img {
   margin-right: 6px;
 }
@@ -75,12 +79,12 @@ header {
   font-weight: 700;
 }
 
-.search-bar, .search-btn,
+form, .search-btn,
 .search-results, .github-stats {
   border-radius: var(--box-radius);
 }
 
-.search-bar {
+form {
   background-color: var(--bg-primary);
   display: flex;
   flex-wrap: wrap;
@@ -197,10 +201,10 @@ dd {
   }
 
   .person-info {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    flex: 0 1 25%;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: start;
+    gap: 1rem 1.3rem;
   }
 
   .info-list-item {
