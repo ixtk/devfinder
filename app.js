@@ -1,4 +1,11 @@
-let userInfo;
+let personInfo;
+let brandAccentDark = window.getComputedStyle(
+  document.querySelector(':root')
+).getPropertyValue('--brand-accent-dark')
+
+let fillSecondary = window.getComputedStyle(
+  document.querySelector(':root')
+).getPropertyValue('--fill-secondary')
 
 const searchBtn = document.querySelector('.search-btn')
 const searchInput = document.querySelector('.search-input')
@@ -40,6 +47,11 @@ const fillData = json => {
   document.querySelector('.twitter').textContent = json.twitter_username || 'Not available'
   document.querySelector('.location').textContent = json.location || 'Not available'
   document.querySelector('.website').innerHTML = json.blog ? `<a href=${json.blog}>Website</a>` : 'No website'
+
+  document.querySelector('li[data-item="location"]').style.color = json.location ? brandAccentDark : fillSecondary
+  document.querySelector('li[data-item="website"]').style.color = json.blog ? brandAccentDark : fillSecondary
+  document.querySelector('li[data-item="twitter"]').style.color = json.twitter_username ? brandAccentDark : fillSecondary
+  document.querySelector('li[data-item="company"]').style.color = json.company ? brandAccentDark : fillSecondary
 }
 
 const getUserInfo = async username => {

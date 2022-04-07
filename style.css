@@ -6,12 +6,13 @@
 
 :root {
   --brand-light: hsl(227, 100%, 98%);
-  --brand-accent: hsl(212, 100%, 50%);
+  --brand-accent: hsl(212, 100%, 46%);
   --brand-accent-light: hsl(212, 100%, 66%);
+  --brand-accent-dark: hsl(217, 35%, 45%);
   --fill-primary: hsl(217, 21%, 21%);
-  --fill-secondary: hsl(217, 20%, 51%);
+  --fill-secondary: hsl(217, 10%, 57%);
   --fill-light: hsl(0, 0%, 100%);
-  --box-shadow: 5px 10px 20px -5px hsl(212, 100%, 93%);
+  --box-shadow: 5px 10px 20px -6px hsl(216, 6%, 85%);
   --box-radius: 10px;
 }
 
@@ -26,6 +27,10 @@ body {
   background-color: var(--brand-light);
   color: var(--fill-primary);
   padding: 1rem 0;
+}
+
+*:focus {
+  outline-color: var(--brand-accent);
 }
 
 .container {
@@ -71,11 +76,6 @@ a:active {
   color: var(--brand-accent-light);
 }
 
-svg {
-  fill: var(--svg-fill);
-  /* hsl(217, 35%, 45%); */
-}
-
 header, .info-list-item, .theme-btn {
   display: flex;
   align-items: center;
@@ -87,8 +87,24 @@ header {
 
 .theme-btn {
   background: none;
-  padding: 0;
-  /* line-height: 1; */
+  padding: 0 0 4px 0;
+  position: relative;
+}
+
+.theme-btn::after {
+  content: '';
+  position: absolute;
+  width: 0px;
+  left: 50%;
+  height: 2px;
+  background-color: var(--fill-primary);
+  bottom: 0;
+  transition: 0.2s all ease-in-out;
+}
+
+.theme-btn:hover::after {
+  width: 100%;
+  left: 0;
 }
 
 .theme-mode-text {
@@ -120,7 +136,7 @@ form {
   padding: 0.5rem 1.1rem;
   flex: auto;
   background-color: var(--brand-accent);
-  transition: 0.2s background-color;
+  transition: 0.2s background-color ease-in-out;
   color: var(--fill-light);
 }
 
@@ -204,7 +220,6 @@ dd {
 .info-list-item {
   column-gap: 0.7rem;
   margin-bottom: 0.5rem;
-  color: var(--fill-secondary);
 }
 
 @media screen and (min-width: 450px) {
