@@ -1,14 +1,15 @@
-let personInfo;
-let brandAccentDark = window.getComputedStyle(
-  document.querySelector(':root')
-).getPropertyValue('--brand-accent-dark')
+const qs = selector => {
+  return document.querySelector(selector)
+}
 
-let fillSecondary = window.getComputedStyle(
-  document.querySelector(':root')
-).getPropertyValue('--fill-secondary')
+const searchBtn = qs('.search-btn')
+const searchInput = qs('.search-input')
 
-const searchBtn = document.querySelector('.search-btn')
-const searchInput = document.querySelector('.search-input')
+if (!localStorage.theme) {
+  localStorage.theme = 'light'
+} else if (localStorage.theme === 'dark') {
+  document.documentElement.className = 'dark-theme'
+}
 
 searchInput.onkeyup = e => {
   if (searchBtn.disabled && searchInput.value !== '')
@@ -17,10 +18,32 @@ searchInput.onkeyup = e => {
     searchBtn.disabled = true
 }
 
-document.querySelector('form').onsubmit = e => {
+qs('.theme-btn').onclick = () => {
+  if (localStorage.theme === 'light')
+    localStorage.theme = 'dark'
+  else 
+    localStorage.theme = 'light'
+
+  document.documentElement.classList.toggle('dark-theme')
+  fillThemeBtn(localStorage.theme)
+}
+
+qs('form').onsubmit = e => {
   e.preventDefault()
   if (searchInput.value === '') return
   getUserInfo(searchInput.value)
+}
+
+const fillThemeBtn = theme => {
+  if (theme === 'dark') {
+    qs('.theme-mode-text').textContent = 'light'
+    qs('.theme-mode-icon').src = './assets/icon-sun.svg'
+    qs('.theme-mode-icon').alt = 'sun icon'
+  } else {
+    qs('.theme-mode-text').textContent = 'dark'
+    qs('.theme-mode-icon').src = './assets/icon-moon.svg'
+    qs('.theme-mode-icon').alt = 'moon icon'
+  }
 }
 
 const fillData = json => {
@@ -29,29 +52,29 @@ const fillData = json => {
     month: 'short',
     day: 'numeric'
   })
-  document.querySelector('.join-time').innerHTML = `Joined <time>${joinTime}</time>`
+  qs('.join-time').innerHTML = `Joined <time>${joinTime}</time>`
 
-  const githubLink = document.querySelector('.user-link')
+  const githubLink = qs('.user-link')
   githubLink.href = json.html_url
   githubLink.textContent = `@${json.login}`
 
-  document.querySelector('.user-avatar').src = json.avatar_url
-  document.querySelector('.username').textContent = json.login
-  document.querySelector('.user-bio').textContent = json.bio || 'No bio'
+  qs('.user-avatar').src = json.avatar_url
+  qs('.username').textContent = json.login
+  qs('.user-bio').textContent = json.bio || 'No bio'
 
-  document.querySelector('.followers').textContent = json.followers
-  document.querySelector('.following').textContent = json.following
-  document.querySelector('.repos').textContent = json.public_repos
+  qs('.followers').textContent = json.followers
+  qs('.following').textContent = json.following
+  qs('.repos').textContent = json.public_repos
   
-  document.querySelector('.company').textContent = json.company || 'No company'
-  document.querySelector('.twitter').textContent = json.twitter_username || 'Not available'
-  document.querySelector('.location').textContent = json.location || 'Not available'
-  document.querySelector('.website').innerHTML = json.blog ? `<a href=${json.blog}>Website</a>` : 'No website'
+  qs('.company').textContent = json.company || 'No company'
+  qs('.twitter').textContent = json.twitter_username || 'Not available'
+  qs('.location').textContent = json.location || 'Not available'
+  qs('.website').innerHTML = json.blog ? `<a href=${json.blog}>Website</a>` : 'No website'
 
-  document.querySelector('li[data-item="location"]').style.color = json.location ? brandAccentDark : fillSecondary
-  document.querySelector('li[data-item="website"]').style.color = json.blog ? brandAccentDark : fillSecondary
-  document.querySelector('li[data-item="twitter"]').style.color = json.twitter_username ? brandAccentDark : fillSecondary
-  document.querySelector('li[data-item="company"]').style.color = json.company ? brandAccentDark : fillSecondary
+  qs('li[data-item="location"]').className = json.location ? 'info-list-item' : 'info-item-dimmed'
+  qs('li[data-item="website"]').className = json.blog ? 'info-list-item' : 'info-item-dimmed'
+  qs('li[data-item="twitter"]').className = json.twitter_username ? 'info-list-item' : 'info-item-dimmed'
+  qs('li[data-item="company"]').className = json.company ? 'info-list-item' : 'info-item-dimmed'
 }
 
 const getUserInfo = async username => {
@@ -68,4 +91,5 @@ const getUserInfo = async username => {
   }
 }
 
+fillThemeBtn(localStorage.theme)
 getUserInfo('octocat')

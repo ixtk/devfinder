@@ -1,19 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
 
-* {
-  box-sizing: border-box;
-}
+/* CUSTOM PROPERTIES */
 
 :root {
-  --brand-light: hsl(227, 100%, 98%);
-  --brand-accent: hsl(212, 100%, 46%);
-  --brand-accent-light: hsl(212, 100%, 66%);
-  --brand-accent-dark: hsl(217, 35%, 45%);
+  --brand-primary: hsl(227, 100%, 98%);
+  --brand-accent-primary: hsl(212, 100%, 46%);
+  --brand-accent-secondary: hsl(212, 100%, 56%);
+  --brand-accent-tertiary: hsl(217, 35%, 45%); 
   --fill-primary: hsl(217, 21%, 21%);
-  --fill-secondary: hsl(217, 10%, 57%);
-  --fill-light: hsl(0, 0%, 100%);
+  --fill-secondary: hsl(0, 0%, 100%);
+  --fill-tertiary: hsl(217, 10%, 57%);
   --box-shadow: 5px 10px 20px -6px hsl(216, 6%, 85%);
   --box-radius: 10px;
+}
+
+.dark-theme {
+  --brand-primary: hsl(219, 39%, 13%);
+  --brand-accent-tertiary: hsl(0, 0%, 90%);
+  --fill-primary: hsl(0, 0%, 90%);
+  --fill-secondary: hsl(221, 41%, 20%);
+  --box-shadow: none;
+}
+
+/* GENERAL */
+
+* {
+  box-sizing: border-box;
 }
 
 html {
@@ -24,13 +36,10 @@ body {
   font-family: 'Space Mono', sans-serif;
   margin: 0;
   line-height: 1.5;
-  background-color: var(--brand-light);
+  background-color: var(--brand-primary);
   color: var(--fill-primary);
   padding: 1rem 0;
-}
-
-*:focus {
-  outline-color: var(--brand-accent);
+  transition: 0.2s background-color ease-in;
 }
 
 .container {
@@ -64,25 +73,44 @@ a {
   display: inline-block;
 }
 
+dl, dd {
+  margin: 0;
+}
+
+form, .search-btn,
+.search-results, .github-stats {
+  border-radius: var(--box-radius);
+}
+
+/* LINKS */
+
 a:hover {
   text-decoration: none;
 }
 
 a, a:visited {
-  color: var(--brand-accent);
+  color: var(--brand-accent-primary);
 }
 
+.dark-theme a,
+.dark-theme a:visited,
 a:active {
-  color: var(--brand-accent-light);
+  color: hsl(212, 100%, 66%);
+}
+
+.dark-theme a:active {
+  color: var(--brand-accent-secondary);
+}
+
+/* HEADER */
+
+header {
+  justify-content: space-between;
 }
 
 header, .info-list-item, .theme-btn {
   display: flex;
   align-items: center;
-}
-
-header {
-  justify-content: space-between;
 }
 
 .theme-btn {
@@ -99,7 +127,7 @@ header {
   height: 2px;
   background-color: var(--fill-primary);
   bottom: 0;
-  transition: 0.2s all ease-in-out;
+  transition: 0.2s all ease-in;
 }
 
 .theme-btn:hover::after {
@@ -112,17 +140,10 @@ header {
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 700;
+  color: var(--fill-primary);
 }
 
-form, .search-btn,
-.search-results, .github-stats {
-  border-radius: var(--box-radius);
-}
-
-form, .search-results {
-  background-color: var(--fill-light);
-  box-shadow: var(--box-shadow);
-}
+/* FORM */
 
 form {
   display: flex;
@@ -135,24 +156,41 @@ form {
 .search-btn {
   padding: 0.5rem 1.1rem;
   flex: auto;
-  background-color: var(--brand-accent);
+  background-color: var(--brand-accent-primary);
   transition: 0.2s background-color ease-in-out;
-  color: var(--fill-light);
-}
-
-.search-btn:hover {
-  background-color: var(--brand-accent-light);
+  color: var(--fill-secondary);
 }
 
 .search-btn:disabled {
-  background-color: var(--brand-accent-light);
   cursor: not-allowed;
+}
+
+.search-btn:disabled:hover {
+  background-color: var(--brand-accent-primary)
+}
+
+.search-btn:hover {
+  background-color: var(--brand-accent-secondary);
+}
+
+.dark-theme .search-btn {
+  color: var(--fill-primary);
+}
+
+form, .search-results {
+  background-color: var(--fill-secondary);
+  box-shadow: var(--box-shadow);
+  transition: 0.2s box-shadow ease-in-out;
 }
 
 .search-input {
   padding: 0.3rem 0.5rem;
   flex-grow: 1;
+  background-color: inherit;
+  color: inherit;
 }
+
+/* MAIN CONTENT */
 
 .search-results {
   margin-top: 2rem;
@@ -197,15 +235,11 @@ form {
 }
 
 .github-stats {
-  background-color: var(--brand-light);
+  background-color: var(--brand-primary);
   padding: 1rem;
   display: flex;
   justify-content: space-between;
   column-gap: 1rem;
-}
-
-dl, dd {
-  margin: 0;
 }
 
 dd {
@@ -220,6 +254,11 @@ dd {
 .info-list-item {
   column-gap: 0.7rem;
   margin-bottom: 0.5rem;
+  color: var(--brand-accent-tertiary);
+}
+
+.info-item-dimmed {
+  color: var(--fill-tertiary);
 }
 
 @media screen and (min-width: 450px) {
